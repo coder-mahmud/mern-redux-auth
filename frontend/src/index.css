@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@media only screen and (max-width:768px){
+  .editIcon{font-size:0}
+}
