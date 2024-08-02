@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setCredentials } from '../slices/authSlice'
 import {useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import Loader from '../components/Loader'
 
 
 const Login =  () => {
@@ -44,26 +45,31 @@ const Login =  () => {
     }
     
   }
+
+  const content = isLoading ? (<><Loader /></>) : (    <>
+    <div className="max-w-xl mx-auto bg-slate-500 px-4 py-10 mt-10 rounded">
+      <h1 className=' text-3xl font-bold mb-6 text-white flex gap-2 items-center justify-center '><FaRegUser /> Login</h1>
+      <form className='max-w-80 mx-auto' onSubmit={submitHandler}>
+        <div className="flex justify-start gap-2 text-white flex-col mb-3">
+          <label htmlFor="email">Email:</label>
+          <input className='px-4 py-2 rounded text-black' id="email" type="email" placeholder='email....' value={email} onChange = {(e)=>{setEmail(e.target.value)}} />
+        </div>
+        <div className="flex justify-start gap-2 text-white flex-col">
+          <label htmlFor="password">Password:</label>
+          <input className='px-4 py-2 rounded text-black' id="password" type="password" placeholder='Password....' value={password} onChange = {(e)=>{setPassword(e.target.value)}} />
+        </div>
+
+        <button type='submit' className='px-7 py-3 bg-red-400 text-white mx-auto mt-3 hover:bg-gray-600 rounded'>Login!</button>
+
+      </form>
+      <p className='text-center mt-4 text-white text-xs'>Don't have an account? <Link className='underline' to="/register">Sign Up</Link></p>
+    </div>
+  </>)
   return (
     <>
-      <div className="max-w-xl mx-auto bg-slate-500 px-4 py-10 mt-10 rounded">
-        <h1 className=' text-3xl font-bold mb-6 text-white flex gap-2 items-center justify-center '><FaRegUser /> Login</h1>
-        <form className='max-w-80 mx-auto' onSubmit={submitHandler}>
-          <div className="flex justify-start gap-2 text-white flex-col mb-3">
-            <label htmlFor="email">Email:</label>
-            <input className='px-4 py-2 rounded text-black' id="email" type="email" placeholder='email....' value={email} onChange = {(e)=>{setEmail(e.target.value)}} />
-          </div>
-          <div className="flex justify-start gap-2 text-white flex-col">
-            <label htmlFor="password">Password:</label>
-            <input className='px-4 py-2 rounded text-black' id="password" type="password" placeholder='Password....' value={password} onChange = {(e)=>{setPassword(e.target.value)}} />
-          </div>
-
-          <button type='submit' className='px-7 py-3 bg-red-400 text-white mx-auto mt-3 hover:bg-gray-600 rounded'>Login!</button>
-
-        </form>
-        <p className='text-center mt-4 text-white text-xs'>Don't have an account? <Link className='underline' to="/register">Sign Up</Link></p>
-      </div>
+    {content}
     </>
+    
   )
 }
 

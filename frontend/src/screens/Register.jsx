@@ -5,6 +5,7 @@ import { useRegisterMutation } from '../slices/apiSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCredentials } from '../slices/authSlice'
 import { toast } from 'react-toastify'
+import Loader from '../components/Loader'
 
 
 const Register =  () => {
@@ -67,6 +68,7 @@ const Register =  () => {
   }
   return (
     <>
+      {isLoading ? (<Loader />) :(
       <div className="max-w-xl mx-auto bg-slate-500 px-4 py-10 mt-10 rounded">
         <h1 className=' text-3xl font-bold mb-6 text-white flex gap-2 items-center justify-center '><FaRegUser /> Register</h1>
         <form className='max-w-80 mx-auto' onSubmit={submitHandler}>
@@ -92,6 +94,7 @@ const Register =  () => {
         </form>
         <p className='text-center mt-4 text-white text-xs'>Already registered? <Link className='underline' to="/login">Login</Link></p>
       </div>
+      )}
     </>
   )
 }

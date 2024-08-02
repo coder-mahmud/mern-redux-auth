@@ -5,6 +5,7 @@ import { FaLock, FaEnvelope,FaUser,FaPencilAlt,FaWindowClose    } from "react-ic
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const Profile = () => {
   const [editing, setEditing]= useState(false);
@@ -110,12 +111,9 @@ const Profile = () => {
 
   return (
     <>
-      <div className="relative profile_info max-w-4xl md:mx-auto my-10 bg-slate-700 p-10 rounded-lg text-white mx-4 pt-24 md:pt-10">
+      <div className="relative profile_info min-h-40 max-w-4xl md:mx-auto my-10 bg-slate-700 p-10 rounded-lg text-white mx-4 pt-24 md:pt-10">
         <a  className="editIcon absolute right-4 top-4 h-14 w-14 md:h-24 md:w-36 cursor-pointer flex flex-col justify-center items-center rounded p-4 border-2 hover:bg-gray-500 " onClick={toggleEdit}>{ editing ? (<div onClick={cancelHandler} className="flex items-center justify-center flex-col"><FaWindowClose className="w-6 h-6" /> Cancel Editing</div>) : (<><FaPencilAlt  className="w-6 h-6" /> Edit Profile</>) }</a>
-        {content}
-
-
-
+        {isLoading ? <Loader /> : content}
 
 
       </div>

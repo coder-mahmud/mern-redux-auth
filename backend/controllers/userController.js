@@ -11,6 +11,7 @@ const authUser = expressAsyncHandler(async (req,res) => {
   if(user && await user.matchPassword(password)){
 
     generateToken(res, user._id)
+    // console.log("res",JSON.parse(res.cookie))
     res.status(200).json({
       _id: user._id,
       name: user.name,
@@ -64,9 +65,10 @@ const getUserProfile = expressAsyncHandler(async (req,res) => {
   res.status(200).json(user)
 })
 
-const updateUserProfile = expressAsyncHandler(async (req,res) =>{
+const updateUserProfile = expressAsyncHandler(async (req,res) => {
   const user = await User.findById(req.user._id)
   if(user){
+    
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
     if(req.body.password ){ user.password = req.body.password }
